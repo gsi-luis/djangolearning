@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+
+if [ "$(uname)" == "Darwin" ]; then
+    # Mac: Get host address
+    export XDEBUG_HOST=$(ipconfig getifaddr en0)
+else
+    # Linux: Get host address
+    export XDEBUG_HOST=$(/sbin/ifconfig docker0 | grep "inet addr" | cut -d ':' -f 2 | cut -d ' ' -f 1)
+fi
+
+# Environment variables
+export APP_WEB_DOMAIN=${APP_WEB_DOMAIN:-django.learning.web.dev.local.com}
+export APP_DJANGO_DOMAIN=${APP_DJANGO_DOMAIN:-django.learning.app.dev.local.com}
+export APP_POSTGRES_DOMAIN=${APP_POSTGRES_DOMAIN:-django.learning.postgres.dev.local.com}
+
+export DB_ROOT_PASS=${DB_ROOT_PASS:-djangolearningroot}
+export DB_NAME=${DB_NAME:-dev}
+export DB_USER=${DB_USER:-djangolearninglocal}
+export DB_PASS=${DB_PASS:-djangolearninglocal}
+
+export TZ=${TZ:-UTC}
+
+
+# Users of the docker containers
+DOCKER_USER_APP="www-data"
+DOCKER_USER_NODE="node"
+
+
+IMAGE_BASE_NAME="python-learning-base"
+IMAGE_LEARNING_PYTHON_NAME="python-learning-django"
+IMAGE_POSTGIS_NAME="python-learning-postgis"
+
+export IMAGE_BASE_NAME=${IMAGE_BASE_NAME}
+export IMAGE_LEARNING_PYTHON_NAME=${IMAGE_LEARNING_PYTHON_NAME}
+export IMAGE_POSTGIS_NAME=${IMAGE_POSTGIS_NAME}
+
+
+# If not exist image base
+if [[ "$(docker images -q $IMAGE_BASE_NAME 2> /dev/null)" == "" ]]; then
+  echo "Docker image build $IMAGE_BASE_NAME start."
+  docker image build . -t $IMAGE_BASE_NAME -f Dockerfiles/dev/DockerfileDjangoBase
+  echo "Docker image build $IMAGE_BASE_NAME success."
+else
+  echo "Docker image $IMAGE_BASE_NAME exist."
+fi
+
+
+if [[ "$(docker images -q $IMAGE_POSTGIS_NAME 2> /dev/null)" == "" ]]; then
+  echo "Docker image build $IMAGE_POSTGIS_NAME start."
+  docker image build . -t $IMAGE_POSTGIS_NAME -f Dockerfiles/dev/DockerfileDB
+  echo "Docker image build $IMAGE_POSTGIS_NAME success."
+else
+  echo "Docker image $IMAGE_POSTGIS_NAME exist."
+fi
+
+if [[ "$(docker images -q $IMAGE_LEARNING_PYTHON_NAME 2> /dev/null)" == "" ]]; then
+  echo "Docker image build $IMAGE_LEARNING_PYTHON_NAME start."
+  docker image build . -t $IMAGE_LEARNING_PYTHON_NAME -f Dockerfiles/dev/DockerfileDjango
+  echo "Docker image build $IMAGE_LEARNING_PYTHON_NAME success."
+else
+  echo "Docker image $IMAGE_LEARNING_PYTHON_NAME exist."
+fi
+
+COMPOSE="docker-compose -f Dockerfiles/dev/docker-compose-dev.yml"
+
+echo "Docker compose build docker-compose-dev.yml"
+$COMPOSE build
+
+echo "Docker compose up docker-compose-dev.yml"
+$COMPOSE up

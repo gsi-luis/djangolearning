@@ -1,0 +1,79 @@
+version: '2'
+
+services:
+  python_learning_django:
+    image: ${IMAGE_LEARNING_PYTHON_NAME}
+    container_name: ${APP_DJANGO_DOMAIN}
+    restart: always
+    command: gunicorn learning_django.wsgi:application -w 2 -b 0.0.0.0:8000 --reload
+    volumes:
+      - ./../../src:/opt/services/djangoapp
+      - ./../../config/django/dev/entrypoint.sh:/entrypoint.sh
+      - python_learning_static_volume:/opt/services/djangoapp/static  # <-- bind the static volume
+      - python_learning_media_volume:/opt/services/djangoapp/media  # <-- bind the media volume
+    env_file:
+      - ./../../.env.dev
+    expose:
+      - 8000
+    networks:
+      python_learning_web:
+        aliases:
+          - ${APP_DJANGO_DOMAIN}
+        ipv4_address: 172.60.0.2
+      python_learning_database:
+        aliases:
+          - ${APP_DJANGO_DOMAIN}
+        ipv4_address: 172.70.0.2
+    depends_on:
+      - python_learning_postgres
+
+  python_learning_nginx:
+    image: nginx:alpine
+    container_name: ${APP_WEB_DOMAIN}
+    volumes:
+      - ./../../config/nginx/dev/conf.d/:/etc/nginx/conf.d
+      - python_learning_static_volume:/opt/services/djangoapp/static  # <-- bind the static volume
+      - python_learning_media_volume:/opt/services/djangoapp/media  # <-- bind the media volume
+    depends_on:
+      - python_learning_django
+    networks:
+      python_learning_web:
+        aliases:
+          - ${APP_WEB_DOMAIN}
+        ipv4_address: 172.60.0.3
+
+  python_learning_postgres:
+    image: ${IMAGE_POSTGIS_NAME}
+    container_name: ${APP_POSTGRES_DOMAIN}
+    restart: unless-stopped
+    environment:
+      POSTGRES_MULTIPLE_DATABASES: qa,dev,staging
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_ROOT_PASSWORD: ${DB_ROOT_PASS}
+      TZ: ${TZ}
+    volumes:
+      - python_learning_database_volume:/data/postgres
+      - ./../../config/postgis/dev/docker-entrypoint-initdb.d/postgis.sh:/docker-entrypoint-initdb.d/postgis.sh
+    networks:
+      python_learning_database:
+        aliases:
+          - ${APP_POSTGRES_DOMAIN}
+        ipv4_address: 172.70.0.3
+
+networks:
+  python_learning_web:
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 172.60.0.0/16
+  python_learning_database:
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 172.70.0.0/16
+
+volumes:
+  python_learning_database_volume:
+  python_learning_static_volume:  # <-- declare the static volume
+  python_learning_media_volume:  # <-- declare the media volume

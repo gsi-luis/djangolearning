@@ -1,0 +1,19 @@
+FROM mdillon/postgis:9.6
+
+LABEL version="0.1" \
+      description="Goheavy Database"
+
+ENV DEBIAN_FRONTEND=noninteractive \
+    #
+    POSTGRES_MULTIPLE_DATABASES=dev \
+    #
+    DB_USER=dev \
+    DB_PASS=dev \
+    #
+    POSTGRES_USER=dev \
+    POSTGRES_PASSWORD=dev \
+    POSTGRES_ROOT_PASSWORD=dev
+
+RUN mkdir -p /docker-entrypoint-initdb.d
+
+COPY ./config/postgis/dev/docker-entrypoint-initdb.d/postgis.sh /docker-entrypoint-initdb.d/postgis.sh
