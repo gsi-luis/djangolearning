@@ -1,0 +1,40 @@
+<h1>Upload files list</h1>
+
+<a href="{% url 'learning_upload:upload_new' %}">New upload file</a>
+<br>
+<a href="{% url 'learning_upload:upload_new_with_model' %}">New upload file with model</a>
+<br>
+<a href="{% url 'learning_upload:upload_new_with_model_storage' %}">New upload file with model storage</a>
+
+{% if files %}
+    <ul>
+        <h2>Upload files manually</h2>
+        {% for file in files %}
+            <li>
+                <a href="/media/uploads/{{ file.name }}" target="_blank">{{ file.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+{% if files_with_model %}
+    <ul>
+        <h2>Upload files with model</h2>
+        {% for file in files_with_model %}
+            <li>
+                <a href="/media/{{ file.file }}" target="_blank">{{ file.file }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+{% if files_with_model_storage %}
+    <ul>
+        <h2>Upload files with model storage attribute</h2>
+        {% for file in files_with_model_storage %}
+            <li>
+                <a href="/media/{{ file.file }}" target="_blank">{{ file.file }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
