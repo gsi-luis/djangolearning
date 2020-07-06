@@ -1,0 +1,28 @@
+<h1>Generic views for Django</h1>
+{% if not show_link_editors and show_link_authors %}
+    <h2>Editors list only</h2>
+{% elif not show_link_authors and show_link_editors %}
+    <h2>Authors list only</h2>
+{% else %}
+    <h2>Persons list all</h2>
+{% endif %}
+{% if person_list %}
+    <ul>
+        {% for person in person_list %}
+            <li>
+                <a href="{% url 'learning_manager:detail_person' person.id %}">
+                    {{ person.full_name }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    {% if show_link_editors %}
+        <a href="{% url 'learning_manager:index_editors' %}">List editors</a>
+    {% endif %}
+    {% if show_link_authors %}
+        <a href="{% url 'learning_manager:index_authors' %}">List authors</a>
+    {% endif %}
+{% else %}
+    <p>No peoples are available.</p>
+{% endif %}
