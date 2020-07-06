@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <th>Module</th>
+            <th>Link</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Forms</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{% url 'learning_form:post_list' %}" target="_blank">Post manually</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'learning_form:author_list' %}" target="_blank">Author django views generic</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Model managers</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{% url 'learning_manager:index_persons' %}" target="_blank">Persons managers</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Polls</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{% url 'polls:index' %}" target="_blank">Index manually</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'polls:generic_index' %}" target="_blank">Index generic</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Upload files</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{% url 'learning_upload:upload_list' %}" target="_blank">Upload files</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

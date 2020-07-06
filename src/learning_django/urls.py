@@ -17,9 +17,15 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls import url
+from . import views
 
 
 urlpatterns = [
+    url(r'^$', views.index, name='main_index'),
     path('polls/', include('polls.urls')),
+    path('persons/', include('learning_manager.urls')),
+    path('upload/', include('learning_upload.urls')),
+    path('form/', include('learning_form.urls')),
     path('admin/', admin.site.urls),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
