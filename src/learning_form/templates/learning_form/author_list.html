@@ -1,0 +1,13 @@
+<h1>Authors list</h1>
+
+<a href="{% url 'learning_form:author_create' %}">Create new</a>
+
+{% if author_list %}
+    {% for author in author_list %}
+        <br>
+        {{ author.full_name }}
+        <a href="{% url 'learning_form:author_detail' pk=author.pk %}">Show</a>
+        <a href="{% url 'learning_form:author_update' pk=author.pk %}">Edit</a>
+        <a href="{% url 'learning_form:author_delete' pk=author.pk %}">Delete</a>
+    {% endfor %}
+{% endif%}
