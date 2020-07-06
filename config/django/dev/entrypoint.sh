@@ -15,6 +15,7 @@ fi
 #python manage.py flush --no-input
 
 # Generate change for structure in database
+python manage.py makemigrations
 python manage.py migrate
 
 # Copy files static for folder in volume shared by container nginx

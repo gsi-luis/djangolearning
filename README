@@ -56,14 +56,28 @@
 git clone https://github.com/gsi-luis/djangolearning.git
 ````
 
-#### Languages and framework project
+#### Structure of project
+
+````
+/path/to/root/of/project
+    |-config          (configurations files used into containers)
+    |-Dockerfiles     (docker files and docker composes)
+    |-src             (root of project django)
+    |-.env.example    (env file example by keys used by environment)
+    |-deploy-dev      (bash file commands for deployment environment develop)
+    |-LICENSE
+    |-README.md
+````
+
+
+#### Languages and frameworks of project
 ````
 * Python 3.8.3
 * Django 3.0.8
 * Postgis 9.6+
 * Nginx
 
-Note: view requirements.txt for all modules used.
+Note: view requirements.txt for all dependencies used.
 ````
 
 #### Set config values on .env.dev file with configurations for environment
@@ -76,9 +90,9 @@ nano .env.dev
 
 #### Edit your host configuration file to add the app domains
 
-* django.learning.web.dev.local.com
-* django.learning.app.dev.local.com
-* django.learning.postgres.dev.local.com
+172.60.0.2  django.learning.app.dev.local.com
+172.60.0.3  django.learning.web.dev.local.com
+172.70.0.3  django.learning.postgres.dev.local.com
 
 #### Start the application
 
@@ -93,6 +107,11 @@ nano .env.dev
     docker exec -it django.learning.app.dev.local.com sh
     django-admin createsuperuser
     ````
+
+3. Access to app from browser:
+    ````
+   http://django.learning.web.dev.local.com/admin/
+   ````
 #### Run Unit tests
 
 Run from project root directory inside of django.learning.app.dev.local.com container:
