@@ -34,3 +34,10 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = ('title', 'text', )
         #exclude = ('title',)
+
+
+class CustomFieldParametersForm(forms.Form):
+    subject = forms.CharField(max_length=100, help_text='100 characters max.')
+    message = forms.CharField()
+    sender = forms.EmailField(help_text='A valid email address, please.')
+    cc_myself = forms.BooleanField(required=False)

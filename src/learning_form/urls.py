@@ -14,4 +14,6 @@ urlpatterns = [
     url(r'^author/(?P<pk>\d+)/$', views.AuthorDetailView.as_view(), name='author_detail'),
     url(r'^author/(?P<pk>\d+)/update/$', views.AuthorUpdate.as_view(), name='author_update'),
     url(r'^author/(?P<pk>\d+)/delete/$', views.AuthorDelete.as_view(), name='author_delete'),
+
+    url(r'^custom_field_parameters/create/$', views.custom_form_field_parameters, name='custom_field_parameter'),
 ]

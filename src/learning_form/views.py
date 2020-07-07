@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .forms import PostForm
+from .forms import PostForm, CustomFieldParametersForm
 from .models import Post, Author
 from django.utils import timezone
 from django.http import HttpResponseRedirect
@@ -72,3 +72,8 @@ class AuthorDetailView(generic.DetailView):
 class AuthorListView(generic.ListView):
     def get_queryset(self):
         return Author.objects.all()
+
+
+def custom_form_field_parameters(request):
+    form = CustomFieldParametersForm()
+    return render(request, 'learning_form/post_edit.html', {'form': form})

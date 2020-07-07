@@ -12,6 +12,17 @@
         </thead>
         <tbody>
             <tr>
+                <td>Administration Django</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{% url 'admin:index' %}" target="_blank">Admin</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+
+            <tr>
                 <td>Forms</td>
                 <td>
                     <ul>
@@ -20,6 +31,9 @@
                         </li>
                         <li>
                             <a href="{% url 'learning_form:author_list' %}" target="_blank">Author django views generic</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'learning_form:custom_field_parameter' %}" target="_blank">Show form custom field parameters</a>
                         </li>
                     </ul>
                 </td>
@@ -56,6 +70,28 @@
                     <ul>
                         <li>
                             <a href="{% url 'learning_upload:upload_list' %}" target="_blank">Upload files</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Generate pdf files</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{% url 'learning_wkhtmltopdf:pdf_index' %}" target="_blank">Pdf files</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Custom validators</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{% url 'learning_validator:validator_index' %}" target="_blank">Validators list</a>
                         </li>
                     </ul>
                 </td>

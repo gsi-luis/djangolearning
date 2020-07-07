@@ -37,11 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'wkhtmltopdf',
     'learning_django',
     'polls',
     'learning_manager',
     'learning_form',
     'learning_upload',
+    'learning_wkhtmltopdf',
+    'learning_validator'
 ]
 
 MIDDLEWARE = [
@@ -136,3 +139,10 @@ FILE_UPLOAD_HANDLERS = [
     "django.core.files.uploadhandler.MemoryFileUploadHandler",
     "django.core.files.uploadhandler.TemporaryFileUploadHandler"
 ]
+
+WKHTMLTOPDF_CMD_OPTIONS = {
+     'quiet': False,
+}
+
+WKHTMLTOPDF_ENV = {'FONTCONFIG_PATH': '/etc/fonts'}
+

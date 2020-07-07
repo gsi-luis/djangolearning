@@ -27,5 +27,7 @@ urlpatterns = [
     path('persons/', include('learning_manager.urls')),
     path('upload/', include('learning_upload.urls')),
     path('form/', include('learning_form.urls')),
+    path('pdf/', include('learning_wkhtmltopdf.urls')),
+    path('validator/', include('learning_validator.urls')),
     path('admin/', admin.site.urls),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
