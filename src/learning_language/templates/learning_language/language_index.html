@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Language list</title>
+</head>
+<body>
+    {% load i18n %}
+
+    <b>Language selected by default: {{ language_default }}</b>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit" />
+    </form>
+
+    <ul>
+        <li>{% trans "Messages" %}</li>
+        <li>{% trans "Static Files" %}</li>
+        <li>{% trans "That page number is not an integer" %}</li>
+        <li>{% trans "That page number is less than 1" %}</li>
+        <li>{% trans "Enter a valid value." %}</li>
+    </ul>
+</body>
+</html>
