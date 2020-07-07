@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Timezone list</title>
+</head>
+<body>
+    {% load tz %}
+
+    <b>Timezone selected by default: {{ timezone_default }}</b>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit" />
+    </form>
+
+    <table>
+        <thead>
+            <th>
+                Name
+            </th>
+            <th>
+                Time
+            </th>
+        </thead>
+        <tbody>
+            {% for tz in timezone_list %}
+                <tr>
+                <td>
+                    {% if tz.0 == timezone_default %}
+                        <b>{{ tz }}</b>
+                    {% else %}
+                        {{ tz }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if tz.0 == timezone_default %}
+                        <b>{{ datetime_now|timezone:tz.0 }}</b>
+                    {% else %}
+                        {{ datetime_now|timezone:tz.0 }}
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
