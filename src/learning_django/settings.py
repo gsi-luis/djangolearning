@@ -44,12 +44,15 @@ INSTALLED_APPS = [
     'learning_form',
     'learning_upload',
     'learning_wkhtmltopdf',
-    'learning_validator'
+    'learning_validator',
+    'learning_timezone',
+    'learning_language',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -70,6 +73,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.i18n',
             ],
         },
     },
@@ -146,3 +150,7 @@ WKHTMLTOPDF_CMD_OPTIONS = {
 
 WKHTMLTOPDF_ENV = {'FONTCONFIG_PATH': '/etc/fonts'}
 
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)

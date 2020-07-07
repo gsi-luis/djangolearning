@@ -29,5 +29,7 @@ urlpatterns = [
     path('form/', include('learning_form.urls')),
     path('pdf/', include('learning_wkhtmltopdf.urls')),
     path('validator/', include('learning_validator.urls')),
+    path('timezone/', include('learning_timezone.urls')),
+    path('language/', include('learning_language.urls')),
     path('admin/', admin.site.urls),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
