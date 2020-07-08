@@ -16,6 +16,20 @@ RUN apk add musl-dev
 RUN apk add gettext
 
 # support for generate pdf file
-RUN apk wkhtmltopdf
+RUN apk add libgcc \
+    libstdc++ \
+    libx11 \
+    glib \
+    libxrender \
+    libxext \
+    libintl \
+    ttf-dejavu \
+    ttf-droid \
+    ttf-freefont \
+    ttf-liberation \
+    ttf-ubuntu-font-family
+
+COPY --from=madnight/alpine-wkhtmltopdf-builder:0.12.5-alpine3.10 \
+    /bin/wkhtmltopdf /bin/wkhtmltopdf
 
 RUN pip install --upgrade pip

@@ -11,8 +11,6 @@ services:
       - ./../../config/django/dev/entrypoint.sh:/entrypoint.sh
       - python_learning_static_volume:/opt/services/djangoapp/static  # <-- bind the static volume
       - python_learning_media_volume:/opt/services/djangoapp/media  # <-- bind the media volume
-    env_file:
-      - ./../../.env.dev
     expose:
       - 8000
     networks:

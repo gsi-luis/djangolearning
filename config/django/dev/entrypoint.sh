@@ -14,6 +14,9 @@ fi
 # Clear all database
 #python manage.py flush --no-input
 
+# install all dependencies
+#pip install -r requirements.txt
+
 # Generate change for structure in database
 python manage.py makemigrations
 python manage.py migrate
