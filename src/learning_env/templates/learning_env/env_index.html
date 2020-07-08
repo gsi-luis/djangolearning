@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Environments key => values</title>
+</head>
+<body>
+    {% if config %}
+        <table>
+            <thead>
+                <th>Key</th>
+                <th>Value</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>DEBUG</td>
+                    <td>{{ config.DEBUG }}</td>
+                </tr>
+                <tr>
+                    <td>DJANGO_ALLOWED_HOSTS</td>
+                    <td>{{ config.DJANGO_ALLOWED_HOSTS }}</td>
+                </tr>
+                <tr>
+                    <td>SQL_ENGINE</td>
+                    <td>{{ config.SQL_ENGINE }}</td>
+                </tr>
+                <tr>
+                    <td>SQL_DATABASE</td>
+                    <td>{{ config.SQL_DATABASE }}</td>
+                </tr>
+                <tr>
+                    <td>SQL_USER</td>
+                    <td>{{ config.SQL_USER }}</td>
+                </tr>
+                <tr>
+                    <td>SQL_HOST</td>
+                    <td>{{ config.SQL_HOST }}</td>
+                </tr>
+            </tbody>
+        </table>
+    {% endif %}
+</body>
+</html>
