@@ -84,8 +84,8 @@ Note: view requirements.txt for all dependencies used.
 
 ````
 cd /path/to/root/of/project
-cp .env.example .env.dev
-nano .env.dev
+cp .env.example src/.env
+nano src/.env
 ````
 
 #### Edit your host configuration file to add the app domains
