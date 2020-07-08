@@ -20,7 +20,6 @@ from django.conf.urls.static import static
 from django.conf.urls import url
 from . import views
 
-
 urlpatterns = [
     url(r'^$', views.index, name='main_index'),
     path('polls/', include('polls.urls')),
@@ -31,5 +30,17 @@ urlpatterns = [
     path('validator/', include('learning_validator.urls')),
     path('timezone/', include('learning_timezone.urls')),
     path('language/', include('learning_language.urls')),
+    path('log/', include('learning_log.urls')),
+    path('email/', include('learning_email.urls')),
+    path('env/', include('learning_env.urls')),
+    path('asyncio/', include('learning_asyncio.urls')),
+    path('rest/', include('learning_rest_framework.urls')),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('admin/', admin.site.urls),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns

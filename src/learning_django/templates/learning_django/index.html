@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Examples modules deployment list</title>
 </head>
 <body>
     <table>
@@ -114,6 +114,95 @@
                     <ul>
                         <li>
                             <a href="{% url 'learning_language:language_index' %}" target="_blank">Language list</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Used logs</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{% url 'learning_log:log_index' %}" target="_blank">Log list</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Used send emails</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{% url 'learning_email:email_index' %}" target="_blank">Send email</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Environment values</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{% url 'learning_env:env_index' %}" target="_blank">Show env key => values</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Used asyncio</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{% url 'learning_asyncio:asyncio_index' %}" target="_blank">Examples used asyncio</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Used Rest Framework</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{% url 'rest_framework:login' %}" target="_blank">Login</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'learning_rest_framework:user-list' %}" target="_blank">Users</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'learning_rest_framework:group-list' %}" target="_blank">Groups</a>
+                        </li>
+                        <li>
+                            Snippet
+                            <ul>
+                                <li>
+                                    <a href="{% url 'learning_rest_framework:snippet-list' %}" target="_blank">View set</a>
+                                </li>
+                                <li>
+                                    <a href="/rest/api_view/snippets" target="_blank">@api_view</a>
+                                </li>
+                                <li>
+                                    <a href="/rest/mixin/snippets" target="_blank">mixins</a>
+                                </li>
+                                <li>
+                                    <a href="/rest/generic/snippets" target="_blank">generic</a>
+                                </li>
+                                <li>
+                                    <a href="/rest/permission/snippets" target="_blank">permission</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            Format
+                            <ul>
+                                <li>
+                                    <a href="/rest/manual/snippets.json" target="_blank">JSON</a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </td>
