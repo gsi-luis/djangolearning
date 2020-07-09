@@ -3,6 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Examples modules deployment list</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="static/learning_django/img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="static/learning_django/img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="static/learning_django/img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="static/learning_django/img/favicon/site.webmanifest">
+    <link rel="mask-icon" href="static/learning_django/img/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
 </head>
 <body>
     <table>
@@ -192,7 +199,43 @@
                                     <a href="/rest/generic/snippets" target="_blank">generic</a>
                                 </li>
                                 <li>
-                                    <a href="/rest/permission/snippets" target="_blank">permission</a>
+                                    Permissions
+                                    <ul>
+                                        <li>
+                                            <a href="/rest/permission/snippets" target="_blank">IsAuthenticatedOrReadOnly</a>
+                                        </li>
+                                        <li>
+                                            <a href="/rest/permission_api_key/snippets" target="_blank">HasAPIKey</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    Filters
+                                    <ul>
+                                        <li>
+                                            <a href="/rest/filter/snippets/?ordering=-title&search=Test" target="_blank">filter and order</a>
+                                        </li>
+                                        <li>
+                                            <a href="/rest/custom_filter/snippets" target="_blank">custom filter (title_only)</a>
+                                        </li>
+                                        <li>
+                                            <a href="/rest/owner_filter/snippets" target="_blank">owner filter default</a>
+                                        </li>
+                                        <li>
+                                            <a href="/rest/url_filter/snippets/?title__contains=Ad" target="_blank">Integration Django Url Filter (https://github.com/miki725/django-url-filter)</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    Pagination
+                                    <ul>
+                                        <li>
+                                            <a href="/rest/standar_pagination/snippets/" target="_blank">standar pagination (show 1 item per page)</a>
+                                        </li>
+                                        <li>
+                                            <a href="/rest/large_pagination/snippets/" target="_blank">large pagination (show 2 item per page)</a>
+                                        </li>
+                                    </ul>
                                 </li>
                             </ul>
                         </li>
