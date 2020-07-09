@@ -4,6 +4,8 @@ from pygments.styles import get_all_styles
 from pygments.lexers import get_lexer_by_name
 from pygments.formatters.html import HtmlFormatter
 from pygments import highlight
+from rest_framework_api_key.models import AbstractAPIKey
+
 
 LEXERS = [item for item in get_all_lexers() if item[1]]
 LANGUAGE_CHOICES = sorted([(item[1][0], item[0]) for item in LEXERS])
@@ -35,3 +37,9 @@ class Snippet(models.Model):
                                   full=True, **options)
         self.highlighted = highlight(self.code, lexer, formatter)
         super(Snippet, self).save(*args, **kwargs)
+
+
+class OrganizationAPIKey(AbstractAPIKey):
+    class Meta(AbstractAPIKey.Meta):
+        verbose_name = "Organization API key"
+        verbose_name_plural = "Organization API keys"

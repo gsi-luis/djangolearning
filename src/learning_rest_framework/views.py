@@ -10,8 +10,12 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import mixins, generics, permissions
+from rest_framework import mixins, generics, permissions, filters
 from .permissions import IsOwnerOrReadOnlySnippet
+from .filters import CustomSearchFilter, IsOwnerFilterBackend
+from url_filter.integrations.drf import DjangoFilterBackend as DjangoFilterUrl
+from .paginations import StandardResultsSetPagination, LargeResultsSetPagination
+from rest_framework_api_key.permissions import HasAPIKey
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -233,3 +237,52 @@ class SnippetPermissionDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnlySnippet]
     queryset = Snippet.objects.all()
     serializer_class = SnippetSerializer
+
+
+class SnippetFilterDetail(generics.ListAPIView):
+    queryset = Snippet.objects.all()
+    serializer_class = SnippetSerializer
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+    search_fields = ['title', '=owner__username']
+    ordering_fields = '__all__'
+
+
+class SnippetCustomFilterDetail(generics.ListAPIView):
+    queryset = Snippet.objects.all()
+    serializer_class = SnippetSerializer
+    filter_backends = [CustomSearchFilter]
+    search_fields = ['title', '=owner__username']
+
+
+class SnippetOwnerFilterDetail(generics.ListAPIView):
+    queryset = Snippet.objects.all()
+    serializer_class = SnippetSerializer
+    filter_backends = [IsOwnerFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    search_fields = ['title']
+    ordering_fields = '__all__'
+
+
+class SnippetDjangoUrlFilterList(generics.ListAPIView):
+    queryset = Snippet.objects.all()
+    serializer_class = SnippetSerializer
+    filter_backends = [DjangoFilterUrl]
+    filter_fields = ['title']
+
+
+class SnippetStandardPagination(generics.ListAPIView):
+    queryset = Snippet.objects.all()
+    serializer_class = SnippetSerializer
+    pagination_class = StandardResultsSetPagination
+
+
+class SnippetLargePagination(generics.ListAPIView):
+    queryset = Snippet.objects.all()
+    serializer_class = SnippetSerializer
+    pagination_class = LargeResultsSetPagination
+
+
+class SnippetPermissionApiKeyList(APIView):
+    queryset = Snippet.objects.all()
+    serializer_class = SnippetSerializer
+    permission_classes = [HasAPIKey]
+

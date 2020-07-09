@@ -46,7 +46,14 @@ urlpatterns = [
     path('generic/snippets/', views.SnippetGenericList.as_view()),
     path('generic/snippets/<int:pk>/', views.SnippetGenericDetail.as_view()),
     path('permission/snippets/', views.SnippetPermissionList.as_view()),
+    path('permission_api_key/snippets/', views.SnippetPermissionApiKeyList.as_view()),
     path('permission/snippets/<int:pk>/', views.SnippetPermissionDetail.as_view()),
+    path('filter/snippets/', views.SnippetFilterDetail.as_view()),
+    path('custom_filter/snippets/', views.SnippetCustomFilterDetail.as_view()),
+    path('owner_filter/snippets/', views.SnippetOwnerFilterDetail.as_view()),
+    path('url_filter/snippets/', views.SnippetDjangoUrlFilterList.as_view()),
+    path('standar_pagination/snippets/', views.SnippetStandardPagination.as_view()),
+    path('large_pagination/snippets/', views.SnippetLargePagination.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
