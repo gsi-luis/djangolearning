@@ -11,3 +11,5 @@ Markdown==3.2.2
 django_filter==2.3.0
 bs4==0.0.1
 Pygments==2.6.1
+django_url_filter==0.3.15
+djangorestframework_api_key==2.0.0
