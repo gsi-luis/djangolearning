@@ -280,7 +280,6 @@ class SnippetLargePagination(generics.ListAPIView):
     serializer_class = SnippetSerializer
     pagination_class = LargeResultsSetPagination
 
-
 class SnippetPermissionApiKeyList(APIView):
     queryset = Snippet.objects.all()
     serializer_class = SnippetSerializer

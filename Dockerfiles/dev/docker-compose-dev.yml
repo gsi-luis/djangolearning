@@ -18,12 +18,10 @@ services:
         aliases:
           - ${APP_DJANGO_DOMAIN}
         ipv4_address: 172.60.0.2
-      python_learning_database:
-        aliases:
-          - ${APP_DJANGO_DOMAIN}
-        ipv4_address: 172.70.0.2
     depends_on:
       - python_learning_postgres
+      - python_learning_es01
+      - python_learning_es02
 
   python_learning_nginx:
     image: nginx:alpine
@@ -54,10 +52,48 @@ services:
       - python_learning_database_volume:/data/postgres
       - ./../../config/postgis/dev/docker-entrypoint-initdb.d/postgis.sh:/docker-entrypoint-initdb.d/postgis.sh
     networks:
-      python_learning_database:
+      python_learning_web:
         aliases:
           - ${APP_POSTGRES_DOMAIN}
-        ipv4_address: 172.70.0.3
+        ipv4_address: 172.60.0.4
+
+  python_learning_es01:
+    image: blacktop/elasticsearch:7.8
+    container_name: ${APP_ELASTIC_SEARCH_01_DOMAIN}
+    environment:
+      - node.name=${APP_ELASTIC_SEARCH_01_DOMAIN}
+      - cluster.name=${APP_ELASTIC_SEARCH_01_DOMAIN}
+      # - discovery.type=multiple-node
+      # - discovery.seed_hosts=${APP_ELASTIC_SEARCH_02_DOMAIN}
+      # - cluster.initial_master_nodes=${APP_ELASTIC_SEARCH_01_DOMAIN},${APP_ELASTIC_SEARCH_02_DOMAIN}
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+    volumes:
+        - python_learning_es01_volume:/usr/share/elasticsearch/data
+    networks:
+      python_learning_web:
+        aliases:
+          - ${APP_ELASTIC_SEARCH_01_DOMAIN}
+        ipv4_address: 172.60.0.5
+
+  python_learning_es02:
+    image: blacktop/elasticsearch:7.8
+    container_name: ${APP_ELASTIC_SEARCH_02_DOMAIN}
+    environment:
+      - node.name=${APP_ELASTIC_SEARCH_02_DOMAIN}
+      - cluster.name=${APP_ELASTIC_SEARCH_02_DOMAIN}
+      # - discovery.seed_hosts=${APP_ELASTIC_SEARCH_01_DOMAIN}
+      # - discovery.type=multiple-node
+      # - cluster.initial_master_nodes=${APP_ELASTIC_SEARCH_01_DOMAIN},${APP_ELASTIC_SEARCH_02_DOMAIN}
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+    volumes:
+      - python_learning_es02_volume:/usr/share/elasticsearch/data
+    networks:
+      python_learning_web:
+        aliases:
+          - ${APP_ELASTIC_SEARCH_02_DOMAIN}
+        ipv4_address: 172.60.0.6
 
 networks:
   python_learning_web:
@@ -65,13 +101,10 @@ networks:
     ipam:
       config:
       - subnet: 172.60.0.0/16
-  python_learning_database:
-    driver: bridge
-    ipam:
-      config:
-      - subnet: 172.70.0.0/16
 
 volumes:
-  python_learning_database_volume:
+  python_learning_database_volume: # <-- declare the static volume
   python_learning_static_volume:  # <-- declare the static volume
   python_learning_media_volume:  # <-- declare the media volume
+  python_learning_es01_volume:  # <-- declare the media volume
+  python_learning_es02_volume:  # <-- declare the media volume

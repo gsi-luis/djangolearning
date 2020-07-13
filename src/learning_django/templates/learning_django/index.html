@@ -82,16 +82,16 @@
                 </td>
             </tr>
 
-            <tr>
+            <!--<tr>
                 <td>Generate pdf files</td>
                 <td>
                     <ul>
                         <li>
-                            <a href="{% url 'learning_wkhtmltopdf:pdf_index' %}" target="_blank">Pdf files</a>
+                            <a href="{ url 'learning_wkhtmltopdf:pdf_index' }" target="_blank">Pdf files</a>
                         </li>
                     </ul>
                 </td>
-            </tr>
+            </tr>-->
 
             <tr>
                 <td>Custom validators</td>
@@ -246,6 +246,47 @@
                                     <a href="/rest/manual/snippets.json" target="_blank">JSON</a>
                                 </li>
                             </ul>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Elastic search </td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="/search/books/" target="_blank">Book</a>
+                            <ul>
+                                <li>
+                                    <a href="/search/books/?search=Learning" target="_blank">Search</a>
+                                </li>
+                                <li>
+                                    <a href="/search/books/?id__lte=2" target="_blank">Filter</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="/search/tag/" target="_blank">Tag</a>
+                            <ul>
+                                <li>
+                                    <a href="/search/tag/?search=Python" target="_blank">Search</a>
+                                </li>
+                                <li>
+                                    <a href="/search/tag/?id__gt=3" target="_blank">Filter</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Swager</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="/documentation" target="_blank">Documentation swager API</a>
                         </li>
                     </ul>
                 </td>

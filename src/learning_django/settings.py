@@ -38,17 +38,25 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'wkhtmltopdf',
+
+    # Third-party apps
+    # 'wkhtmltopdf',
     'debug_toolbar',
+    'elastic_panel',
     'rest_framework',
     'url_filter',
     'rest_framework_api_key',
+    'django_elasticsearch_dsl',
+    'django_elasticsearch_dsl_drf',
+    'rest_framework_swagger',
+
+    # Local apps
     'learning_django',
     'polls',
     'learning_manager',
     'learning_form',
     'learning_upload',
-    'learning_wkhtmltopdf',
+    # 'learning_wkhtmltopdf',
     'learning_validator',
     'learning_timezone',
     'learning_language',
@@ -56,7 +64,10 @@ INSTALLED_APPS = [
     'learning_email',
     'learning_env',
     'learning_asyncio',
-    'learning_rest_framework'
+    'learning_rest_framework',
+    'learning_elasticsearch',
+    'learning_search_indexes',
+    'learning_swager',
 ]
 
 MIDDLEWARE = [
@@ -174,7 +185,12 @@ DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.logging.LoggingPanel',
     'debug_toolbar.panels.redirects.RedirectsPanel',
     'debug_toolbar.panels.profiling.ProfilingPanel',
+    'elastic_panel.panel.ElasticDebugPanel',
 ]
+
+DEBUG_TOOLBAR_CONFIG = {
+    'INTERCEPT_REDIRECTS': False,
+}
 
 
 # Configuration for wkhtmltopdf generate pdf file
@@ -222,16 +238,33 @@ REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
-}
-
-REST_FRAMEWORK = {
+        #'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend'
     ],
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
 }
 
 # API_KEY_CUSTOM_HEADER = "HTTP_X_API_KEY"
+
+# Elasticsearch configuration
+ELASTICSEARCH_DSL = {
+    'default': {
+        'hosts': config("ELASTICSEARCH_DSL_HOSTS", "").split(","),
+        'timeout': 100,
+        'sniff_on_start': True
+    },
+}
+
+# Configuration django rest swagger
+LOGIN_URL = 'rest_framework:login'
+LOGOUT_URL = 'rest_framework:logout'
+JSON_EDITOR = True
+SHOW_REQUEST_HEADERS = True

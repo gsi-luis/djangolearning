@@ -26,7 +26,7 @@ urlpatterns = [
     path('persons/', include('learning_manager.urls')),
     path('upload/', include('learning_upload.urls')),
     path('form/', include('learning_form.urls')),
-    path('pdf/', include('learning_wkhtmltopdf.urls')),
+    # path('pdf/', include('learning_wkhtmltopdf.urls')),
     path('validator/', include('learning_validator.urls')),
     path('timezone/', include('learning_timezone.urls')),
     path('language/', include('learning_language.urls')),
@@ -36,8 +36,13 @@ urlpatterns = [
     path('asyncio/', include('learning_asyncio.urls')),
     path('rest/', include('learning_rest_framework.urls')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('search/', include('learning_search_indexes.urls')),
+    path('documentation/', include('learning_swager.urls')),
     path('admin/', admin.site.urls),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
     import debug_toolbar

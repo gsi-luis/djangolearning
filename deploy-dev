@@ -12,6 +12,8 @@ fi
 export APP_WEB_DOMAIN=${APP_WEB_DOMAIN:-django.learning.web.dev.local.com}
 export APP_DJANGO_DOMAIN=${APP_DJANGO_DOMAIN:-django.learning.app.dev.local.com}
 export APP_POSTGRES_DOMAIN=${APP_POSTGRES_DOMAIN:-django.learning.postgres.dev.local.com}
+export APP_ELASTIC_SEARCH_01_DOMAIN=${APP_ELASTIC_SEARCH_01_DOMAIN:-django.learning.es01.dev.local.com}
+export APP_ELASTIC_SEARCH_02_DOMAIN=${APP_ELASTIC_SEARCH_02_DOMAIN:-django.learning.es02.dev.local.com}
 
 export DB_ROOT_PASS=${DB_ROOT_PASS:-djangolearningroot}
 export DB_NAME=${DB_NAME:-dev}
