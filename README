@@ -88,6 +88,26 @@ cp .env.example src/.env
 nano src/.env
 ````
 
+#### Generate certificates file for elastic search nodes
+
+````
+Execute commands:
+1. docker exec -it django.learning.es01.dev.local.com sh
+
+2. ./bin/elasticsearch-certutil ca --ca-dn CN=django.learning.es01.dev.local.com
+
+3. ./bin/elasticsearch-certutil cert --ca elastic-stack-ca.p12 -name "CN=django.learning.es01.dev.local.com,OU=Elastic Search,DC=django.learning.es01.dev.local.com,DC=com"
+````
+
+#### Generate certificates file for connection into elastic search and kibana
+
+````
+Execute commands:
+1. openssl pkcs12 -in elastic-stack-certificates. -out elastic-stack-certificates.key.pem -nocerts -nodes
+
+2. openssl pkcs12 -in elastic-stack-certificates.p12 -out elastic-stack-certificates.key.pem -nocerts -nodes
+````
+
 #### Edit your host configuration file to add the app domains
 
 172.60.0.2  django.learning.app.dev.local.com

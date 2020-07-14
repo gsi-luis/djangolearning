@@ -14,6 +14,8 @@ export APP_DJANGO_DOMAIN=${APP_DJANGO_DOMAIN:-django.learning.app.dev.local.com}
 export APP_POSTGRES_DOMAIN=${APP_POSTGRES_DOMAIN:-django.learning.postgres.dev.local.com}
 export APP_ELASTIC_SEARCH_01_DOMAIN=${APP_ELASTIC_SEARCH_01_DOMAIN:-django.learning.es01.dev.local.com}
 export APP_ELASTIC_SEARCH_02_DOMAIN=${APP_ELASTIC_SEARCH_02_DOMAIN:-django.learning.es02.dev.local.com}
+export APP_ELASTIC_SEARCH_KIBANA_DOMAIN=${APP_ELASTIC_SEARCH_KIBANA_DOMAIN:-django.learning.kibana.dev.local.com}
+export APP_ELASTIC_SEARCH_CLUSTER_NAME=${APP_ELASTIC_SEARCH_CLUSTER_NAME:-django.learning.esclusterall.dev.local.com}
 
 export DB_ROOT_PASS=${DB_ROOT_PASS:-djangolearningroot}
 export DB_NAME=${DB_NAME:-dev}
