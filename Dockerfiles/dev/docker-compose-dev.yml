@@ -58,42 +58,72 @@ services:
         ipv4_address: 172.60.0.4
 
   python_learning_es01:
-    image: blacktop/elasticsearch:7.8
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.8.0
     container_name: ${APP_ELASTIC_SEARCH_01_DOMAIN}
     environment:
       - node.name=${APP_ELASTIC_SEARCH_01_DOMAIN}
-      - cluster.name=${APP_ELASTIC_SEARCH_01_DOMAIN}
-      # - discovery.type=multiple-node
-      # - discovery.seed_hosts=${APP_ELASTIC_SEARCH_02_DOMAIN}
-      # - cluster.initial_master_nodes=${APP_ELASTIC_SEARCH_01_DOMAIN},${APP_ELASTIC_SEARCH_02_DOMAIN}
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+      - cluster.name=${APP_ELASTIC_SEARCH_CLUSTER_NAME}
+      - discovery.seed_hosts=${APP_ELASTIC_SEARCH_01_DOMAIN} # ,${APP_ELASTIC_SEARCH_02_DOMAIN}
+      - cluster.initial_master_nodes=${APP_ELASTIC_SEARCH_01_DOMAIN} # ,${APP_ELASTIC_SEARCH_02_DOMAIN}
+      - available_processors=2
+      - "ES_JAVA_OPTS=-Xms256m -Xmx256m -Xlog:disable -Xlog:all=warning:stderr:utctime,level,tags -Xlog:gc=debug:stderr:utctime"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
     volumes:
-        - python_learning_es01_volume:/usr/share/elasticsearch/data
+      - ./../../config/elasticsearch/dev/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./../../config/elasticsearch/dev/certs/elastic-stack-ca.p12:/usr/share/elasticsearch/config/elastic-stack-ca.p12
+      - ./../../config/elasticsearch/dev/certs/elastic-stack-certificates.p12:/usr/share/elasticsearch/config/elastic-stack-certificates.p12
+      - python_learning_es01_volume:/usr/share/elasticsearch/data
     networks:
       python_learning_web:
         aliases:
           - ${APP_ELASTIC_SEARCH_01_DOMAIN}
         ipv4_address: 172.60.0.5
 
-  python_learning_es02:
-    image: blacktop/elasticsearch:7.8
-    container_name: ${APP_ELASTIC_SEARCH_02_DOMAIN}
+  #python_learning_es02:
+  #  image: docker.elastic.co/elasticsearch/elasticsearch:7.8.0
+  #  container_name: ${APP_ELASTIC_SEARCH_02_DOMAIN}
+  #  environment:
+  #    - node.name=${APP_ELASTIC_SEARCH_02_DOMAIN}
+  #    - cluster.name=${APP_ELASTIC_SEARCH_CLUSTER_NAME}
+  #    - discovery.seed_hosts=${APP_ELASTIC_SEARCH_01_DOMAIN},${APP_ELASTIC_SEARCH_02_DOMAIN}
+  #    - cluster.initial_master_nodes=${APP_ELASTIC_SEARCH_01_DOMAIN},${APP_ELASTIC_SEARCH_02_DOMAIN}
+  #    - available_processors=2
+  #    - bootstrap.memory_lock=true
+  #    - http.cors.enabled=true
+  #    - http.cors.allow-origin=*
+  #    - "ES_JAVA_OPTS=-Xms256m -Xmx256m -Xlog:disable -Xlog:all=warning:stderr:utctime,level,tags -Xlog:gc=debug:stderr:utctime"
+  #  ulimits:
+  #    memlock:
+  #      soft: -1
+  #      hard: -1
+  #  volumes:
+  #    - ./../../config/elasticsearch/dev/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+  #    - python_learning_es02_volume:/usr/share/elasticsearch/data
+  #  networks:
+  #    python_learning_web:
+  #      aliases:
+  #        - ${APP_ELASTIC_SEARCH_02_DOMAIN}
+  #      ipv4_address: 172.60.0.6
+  
+  python_learning_kibana:
+    image: docker.elastic.co/kibana/kibana-oss:7.8.0
+    container_name: ${APP_ELASTIC_SEARCH_KIBANA_DOMAIN}
     environment:
-      - node.name=${APP_ELASTIC_SEARCH_02_DOMAIN}
-      - cluster.name=${APP_ELASTIC_SEARCH_02_DOMAIN}
-      # - discovery.seed_hosts=${APP_ELASTIC_SEARCH_01_DOMAIN}
-      # - discovery.type=multiple-node
-      # - cluster.initial_master_nodes=${APP_ELASTIC_SEARCH_01_DOMAIN},${APP_ELASTIC_SEARCH_02_DOMAIN}
-      - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
     volumes:
-      - python_learning_es02_volume:/usr/share/elasticsearch/data
+      - ./../../config/kibana/dev/config/kibana.yml:/usr/share/kibana/config/kibana.yml
+      - ./../../config/elasticsearch/dev/certs/elastic-stack-certificates.crt.pem:/usr/share/kibana/config/elastic-stack-certificates.crt.pem
+      - ./../../config/elasticsearch/dev/certs/elastic-stack-certificates.key.pem:/usr/share/kibana/config/elastic-stack-certificates.key.pem
     networks:
       python_learning_web:
         aliases:
-          - ${APP_ELASTIC_SEARCH_02_DOMAIN}
-        ipv4_address: 172.60.0.6
+          - ${APP_ELASTIC_SEARCH_KIBANA_DOMAIN}
+        ipv4_address: 172.60.0.7
+    depends_on:
+      - python_learning_es01
 
 networks:
   python_learning_web:
