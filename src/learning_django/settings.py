@@ -171,6 +171,7 @@ INTERNAL_IPS = [
     '127.0.0.1',
     '172.60.0.3'
 ]
+
 DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.versions.VersionsPanel',
     'debug_toolbar.panels.timer.TimerPanel',
@@ -238,7 +239,7 @@ REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
-        #'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        'rest_framework.permissions.IsAuthenticated'
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
@@ -259,7 +260,7 @@ ELASTICSEARCH_DSL = {
     'default': {
         'hosts': config("ELASTICSEARCH_DSL_HOSTS", "").split(","),
         'timeout': 100,
-        'sniff_on_start': True
+        # 'sniff_on_start': True
     },
 }
 

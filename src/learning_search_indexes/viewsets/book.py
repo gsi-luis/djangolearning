@@ -25,7 +25,14 @@ from learning_search_indexes.serializers.book import BookDocumentSerializer
 
 
 class BookDocumentView(BaseDocumentViewSet):
-    """The BookDocument view."""
+    """
+    The BookDocument view.
+    retrieve:
+        Return a book instance with elastic search.
+
+    list:
+        Return all books with elastic search.
+    """
 
     document = BookDocument
     serializer_class = BookDocumentSerializer
@@ -65,7 +72,7 @@ class BookDocumentView(BaseDocumentViewSet):
         'state': 'state.raw',
         'isbn': 'isbn.raw',
         'price': {
-            'field': 'price.raw',
+            'field': 'price',
             # Note, that we limit the lookups of `price` field in this
             # example, to `range`, `gt`, `gte`, `lt` and `lte` filters.
             'lookups': [

@@ -37,7 +37,25 @@ class GroupViewSet(viewsets.ModelViewSet):
 class SnippetViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows snippet to be viewed or edited.
+    retrieve:
+        Return a snippet instance.
+
+    list:
+        Return all snippet, ordered by most recently joined.
+
+    create:
+        Create a new snippet.
+
+    delete:
+        Remove an existing snippet.
+
+    partial_update:
+        Update one or more fields on an existing snippet.
+
+    update:
+        Update a user.
     """
+
     queryset = Snippet.objects.all()
     serializer_class = SnippetSerializer
 
